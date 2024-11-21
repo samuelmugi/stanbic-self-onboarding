@@ -13,7 +13,8 @@ import Button from "@mui/material/Button";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import SaveIcon from '@mui/icons-material/Save';
 import Divider from "@mui/material/Divider";
-
+import SelfieCapture from "./smile-id/SelfieCapture";
+import SmileCameraDialog from "./SmileCameraDialog";
 
 const videoConstraints = {
     width: 1280,
@@ -29,9 +30,9 @@ export default function Selfie() {
     const capture = React.useCallback(
         () => {
             // @ts-ignore
-            const imageSrc = webcamRef.current.getScreenshot({width: 1920, height: 1080});
-            setImgSrc(imageSrc);
-            console.log(imageSrc);
+            // const imageSrc = webcamRef.current.getScreenshot({width: 1920, height: 1080});
+            // setImgSrc(imageSrc);
+            // console.log(imageSrc);
         },
         [webcamRef, setImgSrc]
     );
@@ -43,36 +44,48 @@ export default function Selfie() {
     const openCamera = () => {
         setCaptureActive(false);
     };
+    const handleCapture = (data:any) => {
+        console.log('Captured data:', data);
+        // Process the captured data as needed
+    };
     return (
         <React.Fragment>
             <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>
                 One last step, take a Selfie
             </Typography>
             <Card
-                // style={{ width: '420', height: '280' }}
+                style={{ width: '530', height: '430' }}
             >
 
                     {captureActive ? (
                             <>
                             </>
                         ):
-                        (  <CardContent>
-                            {!imgSrc && (
-                                <Webcam
-                                audio={false}
-                                height={430}
-                                width={430}
-                                imageSmoothing={true}
-                                // forceScreenshotSourceSize={true}
-                                ref={webcamRef}
-                                screenshotFormat="image/jpeg"
-                                videoConstraints={videoConstraints}
+                        (<CardContent>
+                                <SmileCameraDialog
+                                    hideInstructions={true}
+                                    showNavigation={true}
+                                    onCapture={handleCapture}
+                                />
+                                {!imgSrc && (
+                                    // <Webcam
+                                    // audio={false}
+                                    // height={430}
+                                    // width={430}
+                                    // imageSmoothing={true}
+                                    // // forceScreenshotSourceSize={true}
+                                    // ref={webcamRef}
+                                    // screenshotFormat="image/jpeg"
+                                    // videoConstraints={videoConstraints}
+                                    //
+                                    // />
+                                    <>
 
-                                />)}
+                                    </>
+                                )}
                             </CardContent>
                         )
                     }
-
 
 
                 {imgSrc && (<CardMedia

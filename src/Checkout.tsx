@@ -26,8 +26,9 @@ import Documents from "./components/Documents";
 import Selfie from "./components/Selfie";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-const stepsbak = ['Requirements', 'Contact Information', 'Documents', 'Selfie'];
-// const steps = ['Shipping address', 'Payment details', 'Review your order'];
+import {useEffect} from "react";
+
+
 const steps = ['Requirements', 'Contact Information', 'Documents', 'Selfie'];
 
 function getStepContent(step: number) {
@@ -53,6 +54,9 @@ export default function Checkout(props: { disableCustomTheme?: boolean }) {
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
+
+
+
     return (
         <AppTheme {...props}>
             <CssBaseline enableColorScheme/>
